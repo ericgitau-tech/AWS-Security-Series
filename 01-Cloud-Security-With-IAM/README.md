@@ -15,6 +15,8 @@
 
 ## Introducing Today's Project!
 
+### Project overview
+
 In this project, I will demonstrate how to use AWS Identity and Access Management (IAM) to control access and set permissions in my AWS account. I’m doing this project to build a strong foundation in cloud security, since access management is one of the very first concerns every company has when working in the cloud. In fact, there are even entire roles called IAM Engineers dedicated solely to this skill. That’s exactly what I’m about to start building today.
 
 ### Tools and concepts
@@ -37,7 +39,15 @@ This project took approximately 2 hours to complete, including time spent on pla
 
 ## Tags
 
+### What I did in this step
+
+In this step, I will launch two EC2 instances to boost NextWork's computing power. We are expecting more users and increased traffic to our website over the summer break!
+
+### Understanding tags
+
 Tags are organizational tools that let me label and categorize my resources. In this project, I will use them to make resource management easier and more efficient. They are especially helpful for grouping resources, tracking costs, and applying policies across multiple resources at the same time.
+
+### My tag configuration
 
 The tag I used on my EC2 instances is called Env, which stands for environment. The values I assigned to my instances are Production and Development.
 
@@ -47,15 +57,23 @@ The tag I used on my EC2 instances is called Env, which stands for environment. 
 
 ## IAM Policies
 
+### What I did in this step
+
+In this step, I will use IAM policies to control the access level of a new NextWork intern. The intern should have access only to the Development environment instances, but not to the Production environment.
+
+### Understanding IAM policies
+
 IAM Policies are like rules that define who can do what within my AWS account. In this project, I am using policies to control who has access to our Production environment instances.
 
 ### The policy I set up
 
 For this project, I’ve set up a policy using JSON.
 
+### Policy effect
+
 I’ve created a policy that allows the policy holder (the intern) to have full permissions on any instance tagged with “Development”. They can also view information for all instances, but they are denied permissions to create or delete any instances.
 
-### When creating a JSON policy, you have to define its Effect, Action and Resource.
+### Understanding Effect, Action, and Resource
 
 The Effect, Action, and Resource attributes of a JSON IAM policy work as follows:
 a) Effect → Specifies whether the policy is allowing or denying the action.
@@ -72,7 +90,15 @@ c) Resource → Identifies the specific AWS resources the policy applies to (e.g
 
 ## Account Alias
 
+### What I did in this step
+
+In this step, I will set up an account alias, which acts like a nickname for the AWS Management Console login portal. An account alias makes it easier and more user-friendly for team members to log in.
+
+### Understanding account aliases
+
 An account alias is simply a nickname for my AWS account. Instead of logging in with a long numeric account ID, I can now use the account alias to make access simpler and more convenient.
+
+### Setting up my account alias
 
 Creating an account alias took me less than 30 seconds. Now, my new AWS Console sign-in URL is:
 
@@ -86,23 +112,33 @@ This URL uses my alias instead of my long account ID, making it easier for me an
 
 ## IAM Users and User Groups
 
-### Users
+### What I did in this step
 
-IAM Users are people or entities that have access to and can log in to an AWS account
+In this step, I will set up two IAM resources  IAM Users and IAM User Groups. IAM Users act like individual logins for people who need access to my AWS account, while IAM User Groups work like folders that help manage multiple users who share the same level of access.
 
-### User Groups
+### Understanding user groups
 
 IAM User Groups are like folders that collect multiple IAM Users, allowing you to apply permission settings at the group level instead of individually for each user.
 
+### Attaching policies to user groups
+
 I attached the NetworkDevEnvironment IAM policy to this user group. This means that any user added to the group will automatically inherit the permissions defined in this policy.
+
+### Understanding IAM users
+
+IAM Users are people or entities that have access to and can log in to an AWS account
 
 ---
 
 ## Logging in as an IAM User
 
+### Sharing sign-in details
+
 There are two ways to provide sign-in details to a new IAM user:
 a) Email the sign-in instructions directly to the user.
 b) Download a CSV file containing the user’s sign-in details.
+
+### Observations from the IAM user dashboard
 
 Once I logged in as the IAM user, I noticed that the user was denied access to the main AWS Console dashboard panels. This is because we only granted permissions for the Development EC2 instances, ensuring that the intern cannot see or access anything else in the account.
 
@@ -112,6 +148,12 @@ Once I logged in as the IAM user, I noticed that the user was denied access to t
 
 ## Testing IAM Policies
 
+### What I did in this step
+
+In this step, I will log in to our AWS account as the intern and test access to the Production and Development instances. This ensures that the intern cannot perform any actions that could affect the Production environment.
+
+### Testing policy actions
+
 I tested my JSON IAM policy by attempting to stop both the Development and Production instances.
 
 ### Stopping the production instance
@@ -119,10 +161,6 @@ I tested my JSON IAM policy by attempting to stop both the Development and Produ
 When I tried to stop the Production instance, I encountered an error. This happened because the Production instance is tagged with “Production”, which is outside the scope of the intern’s permission policy. Interns are only allowed to perform actions on Development instances.
 
 ![Image](http://learn.nextwork.org/inspired_purple_vibrant_plum/uploads/aws-security-iam_0e7a9d6a)
-
----
-
-## Testing IAM Policies
 
 ### Stopping the development instance
 
@@ -132,7 +170,11 @@ Next, when I tried to stop the Development instance, I successfully saw its stat
 
 ---
 
-## The IAM Policy Simulator
+## IAM Policy Simulator
+
+To extend my project, I’m going to test my permission policies in a safer and more controlled way using a tool called the IAM Policy Simulator. I’m doing this because stopping instances and logging into the AWS account can be disruptive, so this provides a more efficient and risk-free method to verify permissions
+
+### Understanding the IAM Policy Simulator
 
 The IAM Policy Simulator is a tool that lets us simulate actions and test permission settings by specifying a particular user, group, or role and the actions to test. It’s especially useful for saving time and avoiding the risks of actually stopping or modifying resources while verifying permissions.
 
