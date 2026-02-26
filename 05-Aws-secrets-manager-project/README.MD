@@ -89,7 +89,7 @@ I also added code to config.py to extract the values of the secret stored in AWS
 
 Git rebasing is the process of rewriting or modifying the commit history of a repository. I used it to drop the commit where I had hardcoded the AWS credentials. This step was necessary because even after removing the credentials from the code, they still existed in the commit history of the repository — and as long as they remain there, they are discoverable to attackers.
 
-During the rebase process, a merge conflict occurred because the changes I made in one commit overlapped with the modifications from another commit. I resolved the merge conflict by manually editing the affected files, keeping the correct version of the code, and then using git add <filename> to stage the resolved files. Finally, I ran git rebase --continue to complete the rebase process.
+During the rebase process, a merge conflict occurred because the changes I made in one commit overlapped with the modifications from another commit. I resolved the merge conflict by manually editing the affected files, keeping the correct version of the code, and then using git add <filename> to stage the resolved files. Finally, I ran git rebase --continue to complete the rebase process. 
 
 Once the merge conflict was resolved, I verified that my GitHub repository was no longer exposing any credentials. I checked the config.py file in the forked repository and confirmed that it now uses code to securely extract my credentials instead of hardcoding them. I then successfully pushed my code without any blocking from GitHub’s secret scanning feature.
 
